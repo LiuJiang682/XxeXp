@@ -17,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -35,12 +36,31 @@ public class XxeXp {
 //			xmlInputFactoryXp();
 //			transformerFactoryXp();
 //			schemaFactoryXp();
+			ValidatorXp();
 //			Dom4jXp.dom4jXp();
-			Jdom2Xp.jdom2Xp();
+//			Jdom2Xp.jdom2Xp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	private static void ValidatorXp() throws Exception {
+		String xsd = "src/test/resources/xxe.xsd";
+		String xml = "src/test/resources/xxe.xml";
+		StreamSource xsdStreamSource = new StreamSource(xsd);
+		StreamSource xmlStreamSource = new StreamSource(xml);
+
+		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		Schema schema = schemaFactory.newSchema(xsdStreamSource);
+		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+		Validator validator = schema.newValidator();   // Noncompliant
+		validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");   // Compliant
+		validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");   // Compliant
+		StringWriter writer = new StringWriter();
+		validator.validate(xmlStreamSource, new StreamResult(writer));
+		System.out.println(writer.toString());
 	}
 
 	private static void schemaFactoryXp() throws Exception {
@@ -48,8 +68,8 @@ public class XxeXp {
 		StreamSource xsdStreamSource = new StreamSource(xsd);
 
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);  // Noncompliant
-//		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Compliant
-//		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
+		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Compliant
+		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
 		Schema schema = schemaFactory.newSchema(xsdStreamSource);
 		System.out.println(schema.toString());
 	}
