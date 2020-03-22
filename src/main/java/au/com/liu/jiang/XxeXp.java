@@ -1,20 +1,16 @@
 package au.com.liu.jiang;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringWriter;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -26,7 +22,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import au.com.liu.jiang.dom4j.Dom4jXp;
 import au.com.liu.jiang.handler.SaxHandler;
+import au.com.liu.jiang.jdom2.Jdom2Xp;
 
 public class XxeXp {
 
@@ -36,7 +34,9 @@ public class XxeXp {
 //			SAXParserFactoryXp();
 //			xmlInputFactoryXp();
 //			transformerFactoryXp();
-			schemaFactoryXp();
+//			schemaFactoryXp();
+//			Dom4jXp.dom4jXp();
+			Jdom2Xp.jdom2Xp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,6 +48,8 @@ public class XxeXp {
 		StreamSource xsdStreamSource = new StreamSource(xsd);
 
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);  // Noncompliant
+//		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Compliant
+//		schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
 		Schema schema = schemaFactory.newSchema(xsdStreamSource);
 		System.out.println(schema.toString());
 	}

