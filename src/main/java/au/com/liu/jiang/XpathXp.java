@@ -16,10 +16,19 @@ public class XpathXp {
 		try {
 			xpathDangerCode();
 			xpathSecuredCode();
+			xpathFieldMatchXp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	private static void xpathFieldMatchXp() throws Exception {
+		String xml = "src/test/resources/multilevel.xml";
+		String expression = "//squad";
+		final XPath xpath = XPathFactory.newInstance().newXPath();
+		final String squadName = xpath.evaluate(expression, new InputSource(xml));
+		System.out.println(squadName);
+	};
 
 	private static void xpathSecuredCode() throws Exception {
 		final XPath xpath = XPathFactory.newInstance().newXPath();

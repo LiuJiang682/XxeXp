@@ -23,20 +23,18 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import au.com.liu.jiang.dom4j.Dom4jXp;
 import au.com.liu.jiang.handler.SaxHandler;
-import au.com.liu.jiang.jdom2.Jdom2Xp;
 
 public class XxeXp {
 
 	public static void main(String[] args) {
 		try {
-//			DocumentBuilderFactoryXp();
+			DocumentBuilderFactoryXp();
 //			SAXParserFactoryXp();
 //			xmlInputFactoryXp();
 //			transformerFactoryXp();
 //			schemaFactoryXp();
-			ValidatorXp();
+//			ValidatorXp();
 //			Dom4jXp.dom4jXp();
 //			Jdom2Xp.jdom2Xp();
 		} catch (Exception e) {
@@ -119,6 +117,12 @@ public class XxeXp {
 		Document document = builder.parse(new InputSource(xml));
 		DOMSource domSource = new DOMSource(document);
 		System.out.println(domSource);
+		StringWriter writer = new StringWriter();
+		StreamResult result = new StreamResult(writer);
+		TransformerFactory tf = TransformerFactory.newInstance();
+		Transformer transformer = tf.newTransformer();
+		transformer.transform(domSource, result);
+		System.out.println("XML IN String format is: \n" + writer.toString());
 	}
 
 }
